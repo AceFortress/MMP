@@ -63,7 +63,7 @@ public class EsmsEntity {
     private String esmTitle;
 
     @Basic
-    @Type(type="text")
+    @Type(type = "text")
     @javax.persistence.Column(name = "esm_title")
     public String getEsmTitle() {
         return esmTitle;
@@ -76,7 +76,7 @@ public class EsmsEntity {
     private String esmSubmit;
 
     @Basic
-    @Type(type="text")
+    @Type(type = "text")
     @javax.persistence.Column(name = "esm_submit")
     public String getEsmSubmit() {
         return esmSubmit;
@@ -89,7 +89,7 @@ public class EsmsEntity {
     private String esmInstructions;
 
     @Basic
-    @Type(type="text")
+    @Type(type = "text")
     @javax.persistence.Column(name = "esm_instructions")
     public String getEsmInstructions() {
         return esmInstructions;
@@ -102,7 +102,7 @@ public class EsmsEntity {
     private String esmRadios;
 
     @Basic
-    @Type(type="text")
+    @Type(type = "text")
     @javax.persistence.Column(name = "esm_radios")
     public String getEsmRadios() {
         return esmRadios;
@@ -115,7 +115,7 @@ public class EsmsEntity {
     private String esmCheckboxes;
 
     @Basic
-    @Type(type="text")
+    @Type(type = "text")
     @javax.persistence.Column(name = "esm_checkboxes")
     public String getEsmCheckboxes() {
         return esmCheckboxes;
@@ -140,7 +140,7 @@ public class EsmsEntity {
     private String esmLikertMaxLabel;
 
     @Basic
-    @Type(type="text")
+    @Type(type = "text")
     @javax.persistence.Column(name = "esm_likert_max_label")
     public String getEsmLikertMaxLabel() {
         return esmLikertMaxLabel;
@@ -153,7 +153,7 @@ public class EsmsEntity {
     private String esmLikertMinLabel;
 
     @Basic
-    @Type(type="text")
+    @Type(type = "text")
     @javax.persistence.Column(name = "esm_likert_min_label")
     public String getEsmLikertMinLabel() {
         return esmLikertMinLabel;
@@ -178,7 +178,7 @@ public class EsmsEntity {
     private String esmQuickAnswers;
 
     @Basic
-    @Type(type="text")
+    @Type(type = "text")
     @javax.persistence.Column(name = "esm_quick_answers")
     public String getEsmQuickAnswers() {
         return esmQuickAnswers;
@@ -227,7 +227,7 @@ public class EsmsEntity {
     private String esmUserAnswer;
 
     @Basic
-    @Type(type="text")
+    @Type(type = "text")
     @javax.persistence.Column(name = "esm_user_answer")
     public String getEsmUserAnswer() {
         return esmUserAnswer;
@@ -240,7 +240,7 @@ public class EsmsEntity {
     private String esmTrigger;
 
     @Basic
-    @Type(type="text")
+    @Type(type = "text")
     @javax.persistence.Column(name = "esm_trigger")
     public String getEsmTrigger() {
         return esmTrigger;
@@ -289,7 +289,7 @@ public class EsmsEntity {
     private String esmScaleMaxLabel;
 
     @Basic
-    @Type(type="text")
+    @Type(type = "text")
     @javax.persistence.Column(name = "esm_scale_max_label")
     public String getEsmScaleMaxLabel() {
         return esmScaleMaxLabel;
@@ -302,7 +302,7 @@ public class EsmsEntity {
     private String esmScaleMinLabel;
 
     @Basic
-    @Type(type="text")
+    @Type(type = "text")
     @javax.persistence.Column(name = "esm_scale_min_label")
     public String getEsmScaleMinLabel() {
         return esmScaleMinLabel;

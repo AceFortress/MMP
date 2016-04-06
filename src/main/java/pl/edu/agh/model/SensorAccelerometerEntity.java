@@ -73,7 +73,7 @@ public class SensorAccelerometerEntity {
     }
 
     @Basic
-    @Type(type="text")
+    @Type(type = "text")
     @Column(name = "sensor_name")
     public String getSensorName() {
         return sensorName;
@@ -104,7 +104,7 @@ public class SensorAccelerometerEntity {
     }
 
     @Basic
-    @Type(type="text")
+    @Type(type = "text")
     @Column(name = "sensor_type")
     public String getSensorType() {
         return sensorType;
@@ -115,7 +115,7 @@ public class SensorAccelerometerEntity {
     }
 
     @Basic
-    @Type(type="text")
+    @Type(type = "text")
     @Column(name = "sensor_vendor")
     public String getSensorVendor() {
         return sensorVendor;
@@ -126,7 +126,7 @@ public class SensorAccelerometerEntity {
     }
 
     @Basic
-    @Type(type="text")
+    @Type(type = "text")
     @Column(name = "sensor_version")
     public String getSensorVersion() {
         return sensorVersion;

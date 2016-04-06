@@ -90,7 +90,7 @@ public class AccelerometerEntity {
     }
 
     @Basic
-    @Type(type="text")
+    @Type(type = "text")
     @Column(name = "label")
     public String getLabel() {
         return label;

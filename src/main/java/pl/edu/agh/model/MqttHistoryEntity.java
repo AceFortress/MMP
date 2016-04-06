@@ -37,7 +37,7 @@ public class MqttHistoryEntity {
     }
 
     @Basic
-    @Type(type="text")
+    @Type(type = "text")
     @Column(name = "topic")
     public String getTopic() {
         return topic;
@@ -48,7 +48,7 @@ public class MqttHistoryEntity {
     }
 
     @Basic
-    @Type(type="text")
+    @Type(type = "text")
     @Column(name = "message")
     public String getMessage() {
         return message;
@@ -59,7 +59,7 @@ public class MqttHistoryEntity {
     }
 
     @Basic
-    @Type(type="text")
+    @Type(type = "text")
     @Column(name = "receivers")
     public String getReceivers() {
         return receivers;

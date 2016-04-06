@@ -103,7 +103,7 @@ public class LocationsEntity {
     }
 
     @Basic
-    @Type(type="text")
+    @Type(type = "text")
     @Column(name = "provider")
     public String getProvider() {
         return provider;
@@ -124,7 +124,7 @@ public class LocationsEntity {
     }
 
     @Basic
-    @Type(type="text")
+    @Type(type = "text")
     @Column(name = "label")
     public String getLabel() {
         return label;

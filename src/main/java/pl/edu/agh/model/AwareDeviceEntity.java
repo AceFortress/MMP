@@ -58,7 +58,7 @@ public class AwareDeviceEntity {
     }
 
     @Basic
-    @Type(type="text")
+    @Type(type = "text")
     @Column(name = "board")
     public String getBoard() {
         return board;
@@ -69,7 +69,7 @@ public class AwareDeviceEntity {
     }
 
     @Basic
-    @Type(type="text")
+    @Type(type = "text")
     @Column(name = "brand")
     public String getBrand() {
         return brand;
@@ -80,7 +80,7 @@ public class AwareDeviceEntity {
     }
 
     @Basic
-    @Type(type="text")
+    @Type(type = "text")
     @Column(name = "device")
     public String getDevice() {
         return device;
@@ -91,7 +91,7 @@ public class AwareDeviceEntity {
     }
 
     @Basic
-    @Type(type="text")
+    @Type(type = "text")
     @Column(name = "build_id")
     public String getBuildId() {
         return buildId;
@@ -102,7 +102,7 @@ public class AwareDeviceEntity {
     }
 
     @Basic
-    @Type(type="text")
+    @Type(type = "text")
     @Column(name = "hardware")
     public String getHardware() {
         return hardware;
@@ -113,7 +113,7 @@ public class AwareDeviceEntity {
     }
 
     @Basic
-    @Type(type="text")
+    @Type(type = "text")
     @Column(name = "manufacturer")
     public String getManufacturer() {
         return manufacturer;
@@ -124,7 +124,7 @@ public class AwareDeviceEntity {
     }
 
     @Basic
-    @Type(type="text")
+    @Type(type = "text")
     @Column(name = "model")
     public String getModel() {
         return model;
@@ -135,7 +135,7 @@ public class AwareDeviceEntity {
     }
 
     @Basic
-    @Type(type="text")
+    @Type(type = "text")
     @Column(name = "product")
     public String getProduct() {
         return product;
@@ -146,7 +146,7 @@ public class AwareDeviceEntity {
     }
 
     @Basic
-    @Type(type="text")
+    @Type(type = "text")
     @Column(name = "serial")
     public String getSerial() {
         return serial;
@@ -157,7 +157,7 @@ public class AwareDeviceEntity {
     }
 
     @Basic
-    @Type(type="text")
+    @Type(type = "text")
     @Column(name = "release")
     public String getRelease() {
         return release;
@@ -168,7 +168,7 @@ public class AwareDeviceEntity {
     }
 
     @Basic
-    @Type(type="text")
+    @Type(type = "text")
     @Column(name = "release_type")
     public String getReleaseType() {
         return releaseType;
@@ -189,7 +189,7 @@ public class AwareDeviceEntity {
     }
 
     @Basic
-    @Type(type="text")
+    @Type(type = "text")
     @Column(name = "label")
     public String getLabel() {
         return label;

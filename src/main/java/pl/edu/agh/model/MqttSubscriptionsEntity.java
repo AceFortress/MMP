@@ -46,7 +46,7 @@ public class MqttSubscriptionsEntity {
     }
 
     @Basic
-    @Type(type="text")
+    @Type(type = "text")
     @Column(name = "topic")
     public String getTopic() {
         return topic;

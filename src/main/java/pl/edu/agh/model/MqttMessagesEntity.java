@@ -48,7 +48,7 @@ public class MqttMessagesEntity {
     }
 
     @Basic
-    @Type(type="text")
+    @Type(type = "text")
     @Column(name = "topic")
     public String getTopic() {
         return topic;
@@ -59,7 +59,7 @@ public class MqttMessagesEntity {
     }
 
     @Basic
-    @Type(type="text")
+    @Type(type = "text")
     @Column(name = "message")
     public String getMessage() {
         return message;

@@ -123,7 +123,7 @@ public class BatteryEntity {
     }
 
     @Basic
-    @Type(type="text")
+    @Type(type = "text")
     @Column(name = "battery_technology")
     public String getBatteryTechnology() {
         return batteryTechnology;
