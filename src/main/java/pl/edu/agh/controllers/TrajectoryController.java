@@ -10,7 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import pl.edu.agh.model.LocationsEntity;
 import pl.edu.agh.model.LocationsRepo;
+
+import java.util.List;
 
 /**
  * Created by Radek on 11.04.2016.
@@ -39,7 +42,8 @@ public class TrajectoryController {
     public String startReadingLocationFromDatabase() throws InterruptedException, JsonProcessingException {
         while (true) {
             Thread.sleep(10000);
-            this.template.convertAndSend("/topic/response", mapper.writeValueAsString(locationsRepo.findAll()));
+            List<LocationsEntity> locations = locationsRepo.findAll();
+            this.template.convertAndSend("/topic/response", mapper.writeValueAsString(locations.get(locations.size() - 1)));
             //return mapper.writeValueAsString(locationsRepo.findAll());
         }
     }
