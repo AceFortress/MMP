@@ -1,0 +1,116 @@
+<p>This is the partial for view 2.</p>
+<p>
+    bilateral.m
+    function d_filtered = bilateral(data, local_window, sigma)
+
+    FUNCTION = @(data_, local_window_, sigma_)bilateral_local(data_, local_window_, sigma_);
+
+    d_filtered = colfilt(data, local_window, 'sliding', FUNCTION, local_window, sigma);
+
+    end
+
+    bilateral_local.m
+    function data_filtered = bilateral_local(data, local_window, sigma)
+
+    Nx = size(data,2);
+
+    Ncy = ceil(local_window(1)/2);
+    Ncx = ceil(local_window(2)/2);
+
+    data_filtered = zeros(Nx,1);
+
+    for i=1:Nx
+    patch = reshape(data(:,i), local_window);
+
+    [rows, cols] = find(patch == patch);
+    rows = reshape(rows, local_window);
+    cols = reshape(cols, local_window);
+    dist = sqrt((Ncy - rows).^2 + (Ncx - cols).^2);
+    diff = reshape(abs(data(:,i) - data(((Ncy-1)*local_window(1))+Ncx, i)), local_window);
+    delta = exp(-((diff.^2)./(2*(sigma^2)))) .* dist;
+
+    data_filtered(i) = sum(sum(patch .* delta))/sum(sum(delta));
+    end
+
+    end
+
+    convolution.m
+    function d_filtered = convolution(data, local_window)
+
+    FUNCTION = @(data_, local_window_)convolution_local(data_, local_window_);
+
+    d_filtered = colfilt(data, local_window, 'sliding', FUNCTION, local_window);
+
+    end
+
+    convolution_local.m
+    function data_filtered = convolution_local(data, local_window)
+
+    Nx = size(data,2);
+
+    data_filtered = zeros(Nx,1);
+
+    h = fspecial('gaussian', local_window, 20);
+
+    for i=1:Nx
+    patch = reshape(data(:,i), local_window);
+    data_filtered(i) = sum(sum(patch .* h));
+    end
+
+    end
+
+    lab10_1.m
+    close all;
+    clc;
+    clearvars;
+
+    wSize = 9;
+
+    load('MR_data.mat');
+
+    n1Conv = convolution(I_noisy1, [wSize wSize]);
+    n2Conv = convolution(I_noisy2, [wSize wSize]);
+    n3Conv = convolution(I_noisy3, [wSize wSize]);
+    n4Conv = convolution(I_noisy4, [wSize wSize]);
+
+    sigma = 30;
+
+    n1Bi = bilateral(I_noisy1, [wSize wSize], sigma);
+    n2Bi = bilateral(I_noisy2, [wSize wSize], sigma);
+    n3Bi = bilateral(I_noisy3, [wSize wSize], sigma);
+    n4Bi = bilateral(I_noisy4, [wSize wSize], sigma);
+
+    figure;
+    subplot(3,5,1);
+    imshow(I_noisefree,[]);
+    subplot(3,5,2);
+    imshow(I_noisy1,[]);
+    subplot(3,5,3);
+    imshow(I_noisy2,[]);
+    subplot(3,5,4);
+    imshow(I_noisy3,[]);
+    subplot(3,5,5);
+    imshow(I_noisy4,[]);
+
+    subplot(3,5,6);
+    imshow(I_noisefree,[]);
+    subplot(3,5,7);
+    imshow(n1Conv,[]);
+    subplot(3,5,8);
+    imshow(n2Conv,[]);
+    subplot(3,5,9);
+    imshow(n3Conv,[]);
+    subplot(3,5,10);
+    imshow(n4Conv,[]);
+
+    subplot(3,5,11);
+    imshow(I_noisefree,[]);
+    subplot(3,5,12);
+    imshow(n1Bi,[]);
+    subplot(3,5,13);
+    imshow(n2Bi,[]);
+    subplot(3,5,14);
+    imshow(n3Bi,[]);
+    subplot(3,5,15);
+    imshow(n4Bi,[]);
+</p>

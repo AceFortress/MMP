@@ -3,6 +3,8 @@ package pl.edu.agh.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
@@ -32,9 +34,11 @@ public class TrajectoryController {
 
     @RequestMapping("/start")
     @ResponseBody
+    @MessageMapping("/request")
+    @SendTo("/topic/response")
     public String startReadingLocationFromDatabase() throws InterruptedException, JsonProcessingException {
         while (true) {
-            Thread.sleep(1000);
+            Thread.sleep(10000);
             this.template.convertAndSend("/topic/response", mapper.writeValueAsString(locationsRepo.findAll()));
             //return mapper.writeValueAsString(locationsRepo.findAll());
         }
