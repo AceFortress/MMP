@@ -3,6 +3,7 @@ package pl.edu.agh.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.geo.Point;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -46,5 +47,13 @@ public class TrajectoryController {
             this.template.convertAndSend("/topic/response", mapper.writeValueAsString(locations.get(locations.size() - 1)));
             //return mapper.writeValueAsString(locationsRepo.findAll());
         }
+    }
+
+    @RequestMapping("/getLastLocation")
+    @ResponseBody
+    public Point getLastLocation() {
+        List<LocationsEntity> locations = locationsRepo.findAll();
+        Point point = new Point(locations.get(locations.size() - 1).getDoubleLatitude(), locations.get(locations.size() - 1).getDoubleLongitude());
+        return point;
     }
 }
