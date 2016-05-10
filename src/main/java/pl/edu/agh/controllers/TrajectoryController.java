@@ -41,12 +41,17 @@ public class TrajectoryController {
     public UiDto getLastLocation() {
         //TODO find locationEntity with corresponding gravityEntity
         //remember that timestamp are probably not the same and we need to find closest one
-        LocationsEntity locationsEntity = new LocationsEntity();
-        GravityEntity gravityEntity = new GravityEntity();
-        //
 
-        int timeToPredictInSeconds = 10;
+        LocationsEntity locationsEntity = locationsRepo.findFirstByTimestampGreaterThan(1.462897740000E12);
+        GravityEntity gravityEntity = gravityRepo.findFirstByTimestampGreaterThan(1.462897740000E12);
+        int timeToPredictInSeconds = 30;
+        System.out.println("Device: " + gravityEntity.getDeviceId());
+        System.out.println("Device: " + locationsEntity.getDeviceId());
+
         Point to = calculator.predict(gravityEntity, locationsEntity, timeToPredictInSeconds);
+        System.out.println("From X: " + locationsEntity.getDoubleLatitude() + " From Y: " + locationsEntity.getDoubleLongitude());
+        System.out.println("To   X: " + to.getX() + " To   Y: " + to.getY());
+
         UiDto uiDto = new UiDto();
         uiDto.setFromX(locationsEntity.getDoubleLatitude());
         uiDto.setFromY(locationsEntity.getDoubleLongitude());
@@ -59,7 +64,7 @@ public class TrajectoryController {
                 "Azimut: " + gravityEntity.getDoubleValues0() + "<br>" +
                 "Type: " + locationsEntity.getProvider());
         uiDto.setTitleTo("To");
-        uiDto.setDescriptionTo("Time diffrence: " + timeToPredictInSeconds);
+        uiDto.setDescriptionTo("Time difference: " + timeToPredictInSeconds);
         return uiDto;
     }
 
