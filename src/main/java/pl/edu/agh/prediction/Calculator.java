@@ -1,6 +1,7 @@
 package pl.edu.agh.prediction;
 
 import org.springframework.data.geo.Point;
+import org.springframework.stereotype.Component;
 import pl.edu.agh.model.GravityEntity;
 import pl.edu.agh.model.LocationsEntity;
 
@@ -10,6 +11,7 @@ import static java.lang.Math.sin;
 /**
  * Created by Ace on 10.05.2016.
  */
+@Component
 public class Calculator {
     public Point predict(GravityEntity gravityEntity, LocationsEntity locationsEntity, int seconds) {
         double speed = locationsEntity.getDoubleSpeed(); //m/2

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.geo.Point;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -11,9 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import pl.edu.agh.model.LocationsEntity;
-import pl.edu.agh.model.LocationsRepo;
-import pl.edu.agh.model.UiDto;
+import pl.edu.agh.model.*;
+import pl.edu.agh.prediction.Calculator;
 
 import java.util.List;
 
@@ -29,6 +29,10 @@ public class TrajectoryController {
     LocationsRepo locationsRepo;
     @Autowired
     ObjectMapper mapper;
+    @Autowired
+    Calculator calculator;
+    @Autowired
+    GravityRepo gravityRepo;
 
     private SimpMessagingTemplate template;
 
@@ -53,23 +57,26 @@ public class TrajectoryController {
     @RequestMapping("/getLastLocation")
     @ResponseBody
     public UiDto getLastLocation() {
-        List<LocationsEntity> locations = locationsRepo.findAll();
-        LocationsEntity from = locations.get(locations.size() - 60);
-        LocationsEntity to = locations.get(locations.size() - 50);
+        //TODO find locationEntity with corresponding gravityEntity
+        //remember that timestamp are probably not the same and we need to find closest one
+        LocationsEntity locationsEntity = new LocationsEntity();
+        GravityEntity gravityEntity = new GravityEntity();
+        //
+
+        Point to = calculator.predict(gravityEntity, locationsEntity, 10);
         UiDto uiDto = new UiDto();
-        uiDto.setFromX(from.getDoubleLatitude());
-        uiDto.setFromY(from.getDoubleLongitude());
-        uiDto.setToX(to.getDoubleLatitude());
-        uiDto.setToY(to.getDoubleLongitude());
+        uiDto.setFromX(locationsEntity.getDoubleLatitude());
+        uiDto.setFromY(locationsEntity.getDoubleLongitude());
+        uiDto.setToX(to.getX());
+        uiDto.setToY(to.getY());
         uiDto.setTitleForm("From");
-        uiDto.setDescriptionFrom("Device: " + from.getDeviceId() + "<br>" +
-                "Timestamp: " + getDate(from).toString() + "<br>" +
-                "Speed: " + from.getDoubleSpeed() + "<br>" +
-                "Type: " + from.getProvider());
+        uiDto.setDescriptionFrom("Device: " + locationsEntity.getDeviceId() + "<br>" +
+                "Timestamp: " + getDate(locationsEntity).toString() + "<br>" +
+                "Speed: " + locationsEntity.getDoubleSpeed() + "<br>" +
+                "Azimut: " + gravityEntity.getDoubleValues0() + "<br>" +
+                "Type: " + locationsEntity.getProvider());
         uiDto.setTitleTo("To");
-        uiDto.setDescriptionTo("Device: " + to.getDeviceId() + "<br>" +
-                "Timestamp: " + getDate(to).minus(getDate(from).getMillis()) + "<br>" +
-                "Speed: " + to.getDoubleSpeed());
+        uiDto.setDescriptionTo("Time diffrence: " + 10);
         return uiDto;
     }
 
