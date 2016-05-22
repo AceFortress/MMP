@@ -16,22 +16,17 @@ angular.module('myApp.view1', ['ngRoute'])
         var infowindow = null;
         var currentMarker = null;
         var directionsService;
-        var directionsDisplay;
 
         var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         var labelIndex = 0;
 
         $scope.getLastestPosition = getLastestPosition;
+        $scope.getPreviousPosition = getPreviousPosition;
 
         initialize();
 
         function initialize() {
-            var rendererOptions = {
-                map: map,
-                suppressMarkers: true,
-                preserveViewport: true
-            }
-            directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+
             infowindow = new google.maps.InfoWindow(
                 {
                     size: new google.maps.Size(150, 50)
@@ -49,7 +44,6 @@ angular.module('myApp.view1', ['ngRoute'])
                 map.fitBounds(results[0].geometry.viewport);
 
             });
-            directionsDisplay.setMap(map);
         }
 
         function getLastestPosition() {
@@ -62,8 +56,27 @@ angular.module('myApp.view1', ['ngRoute'])
                 });
         }
 
+        function getPreviousPosition() {
+            $http.get('http://localhost:8080/getPreviousLocation')
+                .then(function successCallback(response) {
+                    console.log(response);
+                    getRoute(response.data);
+                }, function errorCallback(response) {
+                    console.log("error");
+                });
+        }
+
 
         function getRoute(data) {
+            var rendererOptions = {
+                map: map,
+                suppressMarkers: true,
+                preserveViewport: true
+            }
+            var directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+
+            directionsDisplay.setMap(map);
+
             directionsService = new google.maps.DirectionsService();
 
             var travelMode = google.maps.DirectionsTravelMode.WALKING;

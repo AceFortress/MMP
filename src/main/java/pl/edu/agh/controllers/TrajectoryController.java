@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import pl.edu.agh.model.*;
 import pl.edu.agh.prediction.Calculator;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Radek on 11.04.2016.
  */
@@ -36,6 +39,23 @@ public class TrajectoryController {
         this.template = template;
     }
 
+    List<LocationsEntity> locationsEntities = new ArrayList<>();
+    int counter;
+
+    @RequestMapping("/getPreviousLocation")
+    @ResponseBody
+    public UiDto getPreviousLocation() {
+        if (locationsEntities.isEmpty()) {
+            locationsEntities = locationsRepo.findAll();
+            counter = locationsEntities.size();
+        }
+
+        LocationsEntity locationsEntity = locationsEntities.get(--counter);
+        GravityEntity gravityEntity = gravityRepo.findFirstByTimestampGreaterThan(locationsEntity.getTimestamp() - 0.000000000000E12);
+
+        return calculateLocation(locationsEntity, gravityEntity);
+    }
+
     @RequestMapping("/getLastLocation")
     @ResponseBody
     public UiDto getLastLocation() {
@@ -44,6 +64,11 @@ public class TrajectoryController {
 
         LocationsEntity locationsEntity = locationsRepo.findFirstByTimestampGreaterThan(1.462897740000E12);
         GravityEntity gravityEntity = gravityRepo.findFirstByTimestampGreaterThan(1.462897740000E12);
+
+        return calculateLocation(locationsEntity, gravityEntity);
+    }
+
+    private UiDto calculateLocation(LocationsEntity locationsEntity, GravityEntity gravityEntity) {
         int timeToPredictInSeconds = 30;
         System.out.println("Device: " + gravityEntity.getDeviceId());
         System.out.println("Device: " + locationsEntity.getDeviceId());
