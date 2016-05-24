@@ -47,10 +47,13 @@ public class TrajectoryController {
     public UiDto getPreviousLocation() {
         if (locationsEntities.isEmpty()) {
             locationsEntities = locationsRepo.findAll();
-            counter = locationsEntities.size();
+            counter = locationsEntities.size() - 270;
         }
 
         LocationsEntity locationsEntity = locationsEntities.get(--counter);
+        while (locationsEntity.getDoubleSpeed() == 0) {
+            locationsEntity = locationsEntities.get(--counter);
+        }
         GravityEntity gravityEntity = gravityRepo.findFirstByTimestampGreaterThan(locationsEntity.getTimestamp() - 0.000000000000E12);
 
         return calculateLocation(locationsEntity, gravityEntity);
@@ -70,6 +73,7 @@ public class TrajectoryController {
 
     private UiDto calculateLocation(LocationsEntity locationsEntity, GravityEntity gravityEntity) {
         int timeToPredictInSeconds = 30;
+        System.out.println("Counter: " + counter);
         System.out.println("Device: " + gravityEntity.getDeviceId());
         System.out.println("Device: " + locationsEntity.getDeviceId());
 

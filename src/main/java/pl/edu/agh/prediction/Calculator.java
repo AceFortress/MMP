@@ -15,6 +15,9 @@ import static java.lang.Math.sin;
 public class Calculator {
     public Point predict(GravityEntity gravityEntity, LocationsEntity locationsEntity, int seconds) {
         double speed = locationsEntity.getDoubleSpeed(); //m/2
+        if (speed == 0) {
+            System.out.println("WARNING SPEED = 0");
+        }
         double distanceTravelled = speed * seconds; //meters
 
         //http://www.dummies.com/how-to/content/how-to-find-vector-components.html
