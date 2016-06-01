@@ -20,12 +20,10 @@ public class Calculator {
         }
         double distanceTravelled = speed * seconds; //meters
 
-        //http://www.dummies.com/how-to/content/how-to-find-vector-components.html
         double azimut = gravityEntity.getDoubleValues0();
         double yOffset = sin(azimut) * distanceTravelled;
         double xOffset = cos(azimut) * distanceTravelled;
 
-        //http://www.ceus-now.com/algorithm-for-offsetting-a-latitude-longitude-by-some-amount-of-meters/
         //Earth’s radius, sphere
         double R = 6378137;
         double latitude = locationsEntity.getDoubleLatitude();
